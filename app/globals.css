@@ -1,0 +1,100 @@
+@tailwind base;
+/* disclaimer section */
+.disclaimer_bg {
+  background: linear-gradient(269.69deg, #006cbb -1.78%, #e300da 102.53%);
+}
+.pagi.active {
+  background-color: #007bff;
+  color: white !important;
+  font-weight: bold;
+  cursor: default;
+  border-radius: 50%;
+}
+.para p {
+  width: 70%;
+  padding-bottom: 1rem;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.pagination .pagi {
+  text-align: center;
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+/*testimonial slider animation */
+.testimonial-slider {
+  position: relative;
+}
+
+.testimonial-item {
+  opacity: 0;
+  transform: translateX(100%);
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: -1;
+}
+
+.testimonial-item.active {
+  opacity: 1;
+  position: relative;
+  inset: 0;
+  transform: translateX(0);
+  z-index: 1;
+}
+/* react video player */
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.btn_read {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.card_main {
+  position: relative;
+}
+.card_title {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px black, 0 0 1em grey, 0 0 0.2em grey;
+}
+.main_card {
+  margin-top: 3rem;
+}
+
+.heading_help{
+  text-align: center
+}
+
+.light_btn{
+  color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+@tailwind components;
+@tailwind utilities;
+
+
