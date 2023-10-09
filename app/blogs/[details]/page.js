@@ -4,9 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Breadcrumb from "@/ui/Breadcrumb";
 import axios from "axios";
-
+import { basePathApi } from "@/app/Apicall/basePathApi";
 function Details({ params }) {
-  const router = useRouter();
   const id = params.details;
 
   const [data, setData] = useState(null);
@@ -16,9 +15,7 @@ function Details({ params }) {
   useEffect(() => {
     if (id) {
       axios
-        .post(
-          `https://dinovaux.ai/uitasite/public/api/blogpost_single_blog?id=${id}`
-        )
+        .post(`${basePathApi}blogpost_single_blog?id=${id}`)
         .then((response) => {
           setData(response.data.data);
           setLoading(false);
@@ -47,7 +44,7 @@ function Details({ params }) {
         <p>Error: {error.message}</p>
       ) : data ? (
         <section className="lg:pt-16 pt-16">
-          {/ section title /}
+          {/* section title */}
           <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
             {data.Title}
           </h2>

@@ -4,37 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { apiBaseUrl } from "@/lib/constants";
 import Loader from "@/ui/Loader";
-
+import { SC } from "../Apicall/ServerCall";
+import { coursesLibrary } from "@/app/Apicall/endPoints";
 const AllCourses = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/courses_library`, {
-          headers: {
-            "Content-Type": "application/json",
-            // Include any other headers you need
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
-
-    fetchCourses();
+  
+    loadCourse();
   }, []);
+
+  const loadCourse = () => {
+    SC.getCall(coursesLibrary).then((res) => {
+      if (res) {
+        setData(res.data.data);
+        setIsLoading(false);
+      }
+    });
+  };
 
   if (isLoading) {
     return (
@@ -48,7 +37,7 @@ const AllCourses = () => {
     );
   }
 
-  if (data?.data.length === 0) {
+  if (data.length === 0) {
     return (
       <div className="flex md:flex-nowrap flex-wrap justify-center -mx-2 mt-9 lg:mt-12">
         <div className="p-10">No records found.</div>
@@ -73,11 +62,10 @@ const AllCourses = () => {
       <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 mt-9 lg:mt-12">
         {data !== null &&
           !isLoading &&
-          data?.data.map((course) => (
+          data?.map((course) => (
             <div
               className="flex flex-col mb-5 lg:mb-[50px]"
-              key={course.vendorId}
-            >
+              key={course.vendorId}>
               <Link
                 className="flex items-center justify-center min-h-[120px] sm:min-h-[170px] md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
                 href={{
@@ -86,8 +74,7 @@ const AllCourses = () => {
                     vendorId: course.vendorId,
                     vendorName: course.vendor_Name,
                   },
-                }}
-              >
+                }}>
                 <Image
                   src={`https://www.urduitacademy.com/vendorImages/${course.vendor_ImageLink}`}
                   alt="course image"
@@ -106,8 +93,7 @@ const AllCourses = () => {
                       vendorId: course.vendorId,
                       vendorName: course.vendor_Name,
                     },
-                  }}
-                >
+                  }}>
                   {course.vendor_Name}
                 </Link>
               </h3>

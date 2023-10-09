@@ -1,33 +1,41 @@
 "use client";
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/ui/Breadcrumb";
-import axios from "axios";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { blogData } from "../Apicall/endPoints";
+import { SC } from "../Apicall/ServerCall";
+import Card from "./cards";
 
-const Card = dynamic(() => import("./cards"), {
-  loading: () => <p>Loading...</p>,
-});
+// const Card = dynamic(() => import("./cards"), {
+//   loading: () => <p>Loading...</p>,
+// });
 
-export default function Blog({ searchParams, dataP }) {
+export default function Blog({ searchParams }) {
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.page) || 1
   );
   const [totalPages, setTotalPages] = useState(1);
   const [productData, setProductData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the initial data and update the productData state
-    async function fetchData() {
-      const response = await axios.post(
-        "https://dinovaux.ai/uitasite/public/api/blogpost"
-      );
-      setProductData(response.data.data.data);
-      setTotalPages(response.data.data.last_page); // Set total pages based on API response
-    }
 
     fetchData();
+
   }, []);
+
+  const fetchData = () => {
+    SC.postCall(blogData).then((res) => {
+      if (res) {
+        setProductData(res.data.data.data);
+        setTotalPages(res.data.data.last_page);
+        setLoading(false);
+      } else {
+        console.log("Something went wrong");
+      }
+    });
+  };
 
   const getPageLink = (page) => {
     return `/blogs?page=${page}`;
@@ -38,8 +46,7 @@ export default function Blog({ searchParams, dataP }) {
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
-        ;
+      setCurrentPage(page);
     }
   };
 
@@ -67,7 +74,13 @@ export default function Blog({ searchParams, dataP }) {
         </h2>
         <div className="container my-12 mx-auto px-4 md:px-12">
           <div className="flex flex-wrap -mx-1 lg:-mx-4">
-            <Card productData={productData} />
+            {loading ? (
+              <div>
+                <h1 className="text-xl text-blue-500">Loading...</h1>
+              </div>
+            ) : (
+              <Card productData={productData} />
+            )}
           </div>
         </div>
 
