@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { apiBaseUrl } from "@/lib/constants";
 import Loader from "@/ui/Loader";
+import { Testimonial } from "@/app/Apicall/endPoints";
+import { SC } from "@/app/Apicall/ServerCall";
 const articles = [
   {
     id: "1",
@@ -24,31 +26,44 @@ const Testimonials = () => {
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // useEffect(() => {
+  //   const fetchReviews = async () => {
+  //     try {
+  //       const response = await fetch(`${apiBaseUrl}/api/customer_reviews`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           // Include any other headers you need
+  //         },
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error("Request failed");
+  //       }
+  //       const jsonData = await response.json();
+
+  //       setData(jsonData);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       setError(error.message);
+  //     }
+  //   };
+
+  //   fetchReviews();
+  // }, []);
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/customer_reviews`, {
-          headers: {
-            "Content-Type": "application/json",
-            // Include any other headers you need
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
-
-    fetchReviews();
+    loadCourse();
   }, []);
+
+  const loadCourse = () => {
+    SC.getCall(Testimonial).then((res) => {
+      if (res) {
+        setData(res.data.data);
+
+        setIsLoading(false);
+      }
+    });
+  };
 
   const handlePrevClick = () => {
     setCurrentSlide((prevSlide) =>
@@ -58,7 +73,7 @@ const Testimonials = () => {
 
   const handleNextClick = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide < data?.data.length - 1 ? prevSlide + 1 : 0
+      prevSlide < data?.length - 1 ? prevSlide + 1 : 0
     );
   };
 
@@ -71,8 +86,7 @@ const Testimonials = () => {
         </button>
         <div
           className="w-full overflow-hidden flex flex-col justify-center items-center lg:w-[780px] text-center py-4 min-h-[300px] sm::min-h-[200px]  lg:py-[37px] px-4 lg:px-[62px] border border-[#E8E8E8] rounded-lg testimonial-slider"
-          numberofslides={data?.data.length}
-        >
+          numberofslides={data?.length}>
           {data?.length === 0 && (
             <div className="flex md:flex-nowrap flex-wrap justify-center -mx-2 mt-9 lg:mt-12">
               <div className="p-10">No records found.</div>
@@ -82,13 +96,12 @@ const Testimonials = () => {
 
           {data !== null &&
             !isLoading &&
-            data?.data.map((testimonial, index) => (
+            data?.map((testimonial, index) => (
               <div
                 key={testimonial.id}
                 className={`testimonial-item flex flex-col justify-between ${
                   index === currentSlide && "active"
-                }`}
-              >
+                }`}>
                 <p className="font-normal text-sm md:text-base pb-4">
                   {testimonial.customer_remarks}
                 </p>

@@ -5,43 +5,61 @@ import Link from "next/link";
 import { ArrowSmallRightIcon } from "@heroicons/react/20/solid";
 import { apiBaseUrl } from "@/lib/constants";
 import Loader from "@/ui/Loader";
+import { SC } from "@/app/Apicall/ServerCall";
+import { OurCourse } from "@/app/Apicall/endPoints";
+
 
 const OurCourses = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // useEffect(() => {
+
+  //   const fetchCourses = async () => {
+  //     try {
+  //       const payload = {
+  //         latestRecordCount: 4,
+  //       };
+
+  //       const response = await fetch(`${apiBaseUrl}/api/courses`, {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(payload),
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error("Request failed");
+  //       }
+
+  //       const jsonData = await response.json();
+
+  //       setData(jsonData);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       setError(error.message);
+  //     }
+  //   };
+
+  //   fetchCourses();
+  // }, []);
+
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const payload = {
-          latestRecordCount: 4,
-        };
-
-        const response = await fetch(`${apiBaseUrl}/api/courses`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-
-        const jsonData = await response.json();
-
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
-
-    fetchCourses();
+    loadCourse();
   }, []);
+
+  const loadCourse = () => {
+    SC.postCall(OurCourse).then((res) => {
+      if (res) {
+        setData(res.data.data);
+        
+        setIsLoading(false);
+      }
+    });
+  };
 
   if (isLoading) {
     return (
@@ -55,7 +73,7 @@ const OurCourses = () => {
     );
   }
 
-  if (data?.data.length === 0) {
+  if (data?.length === 0) {
     return (
       <div className="flex md:flex-nowrap flex-wrap justify-center -mx-2 mt-9 lg:mt-12">
         <div className="p-10">No records found.</div>
@@ -73,7 +91,7 @@ const OurCourses = () => {
       <div className="flex md:flex-nowrap flex-wrap justify-center -mx-2 mt-9 lg:mt-12 sm:px-0 xs:px-20 px-0">
         {data !== null &&
           !isLoading &&
-          data?.data.slice(0, 4).map((course) => (
+          data?.slice(0, 4).map((course) => (
             <Link
               key={course.vendorId}
               className="flex items-center justify-center w-full sm:w-[280px] lg:w-full h-[170px] lg:h-[223px] mx-2 my-2 border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
@@ -83,8 +101,7 @@ const OurCourses = () => {
                   vendorId: course.vendorId,
                   vendorName: course.vendor_Name,
                 },
-              }}
-            >
+              }}>
               <Image
                 src={`https://www.urduitacademy.com/vendorImages/${course.vendor_ImageLink}`}
                 alt="course image"
@@ -100,8 +117,7 @@ const OurCourses = () => {
       <div className="flex justify-center">
         <Link
           href="/courses"
-          className="lg:text-lg md:text-base text-sm font-bold mt-7 lg:mt-10 flex items-center"
-        >
+          className="lg:text-lg md:text-base text-sm font-bold mt-7 lg:mt-10 flex items-center">
           See all courses <ArrowSmallRightIcon className="w-6 mt-1" />
         </Link>
       </div>

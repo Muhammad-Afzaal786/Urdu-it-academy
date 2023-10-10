@@ -1,29 +1,56 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { apiBaseUrl } from "@/lib/constants";
+import { basePathApi } from "@/app/Apicall/basePathApi";
 import Loader from "@/ui/Loader";
+import { SC } from "@/app/Apicall/ServerCall";
+import { HomeBlogs } from "@/app/Apicall/endPoints";
 
 const Blog = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/blogs`, {
-          headers: {
-            "Content-Type": "application/json",
-            // Include any other headers you need
-          },
-        });
+  // useEffect(() => {
+  //   const fetchBlogs = async () => {
+  //     try {
+  //       const response = await fetch(`${basePathApi}/api/blogs`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           // Include any other headers you need
+  //         },
+  //       });
 
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-        // Sort the data based on 'created_at' field in descending order
-        const sortedData = jsonData.data.sort(
+  //       if (!response.ok) {
+  //         throw new Error("Request failed");
+  //       }
+  //       const jsonData = await response.json();
+  //       // Sort the data based on 'created_at' field in descending order
+  //       const sortedData = jsonData.data.sort(
+  //         (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  //       );
+
+  //       // Select the first four elements to get the last inserted blogs
+  //       const lastInsertedBlogs = sortedData.slice(0, 4);
+
+  //       setData(lastInsertedBlogs);
+
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       setError(error.message);
+  //     }
+  //   };
+
+  //   fetchBlogs();
+  // }, []);
+  useEffect(() => {
+    loadCourse();
+  }, []);
+
+  const loadCourse = () => {
+    SC.getCall(HomeBlogs).then((res) => {
+      if (res) {
+        const sortedData = res.data.data.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
 
@@ -32,15 +59,11 @@ const Blog = () => {
 
         setData(lastInsertedBlogs);
 
+        // setData(res.data.data);
         setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
       }
-    };
-
-    fetchBlogs();
-  }, []);
+    });
+  };
 
   if (isLoading) {
     return (
@@ -77,8 +100,7 @@ const Blog = () => {
               target="_blank"
               rel="noopener noreferrer" // For security reasons
               key={a.vendorId}
-              className="w-full flex flex-col sm:w-[280px] lg:w-full mx-2 my-2"
-            >
+              className="w-full flex flex-col sm:w-[280px] lg:w-full mx-2 my-2">
               <div
                 className="w-full h-[170px] lg:h-[223px]"
                 style={{
