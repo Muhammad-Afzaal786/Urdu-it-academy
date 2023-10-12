@@ -21,7 +21,7 @@ const SearchResults = ({ searchParams }) => {
           search: searchParams?.get('query'),
         };
 
-        const response = await fetch(`${basePathApi}/search`, {
+        const response = await fetch(`${basePathApi}search`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

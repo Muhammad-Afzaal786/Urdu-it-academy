@@ -50,7 +50,7 @@ export default function Navbar() {
                   <div className="flex flex-shrink-0 items-center">
                     <Link href="/">
                       <Image
-                        src="/logo.png"
+                        src="/Logo-2.png"
                         alt="Urdu IT Academy"
                         width={144}
                         height={38}

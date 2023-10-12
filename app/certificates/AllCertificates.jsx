@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { apiBaseUrl } from "@/lib/constants";
+import { basePathApi } from "../Apicall/basePathApi";
 import Loader from "@/ui/Loader";
 
 const AllCertificates = ({ searchParams }) => {
@@ -13,9 +13,9 @@ const AllCertificates = ({ searchParams }) => {
     const fetchCertificates = async () => {
       try {
         const payload = {
-          vendorId: searchParams.get('vendorId'),
+          vendorId: searchParams.get("vendorId"),
         };
-        const response = await fetch(`${apiBaseUrl}/api/certificates`, {
+        const response = await fetch(`${basePathApi}certificates`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const AllCertificates = ({ searchParams }) => {
       <section className="lg:pt-20 pt-16">
         {/* section title */}
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.get('vendorName')} Courses
+          {searchParams.get("vendorName")} Courses
         </h2>
         <Loader className="mt-6" />
       </section>
@@ -64,7 +64,7 @@ const AllCertificates = ({ searchParams }) => {
       {/* section header */}
       <div className="flex flex-col space-y-4 md:space-y-8">
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.get('vendorName')} Courses
+          {searchParams.get("vendorName")} Courses
         </h2>
         <p className="md:text-left text-center font-normal text-sm sm:text-base text-[#1C1C1C]">
           {data?.data[0].courseDetails.detail}
@@ -77,8 +77,7 @@ const AllCertificates = ({ searchParams }) => {
           data?.data.map((c) => (
             <div
               className="flex flex-col mb-5 lg:mb-[50px]"
-              key={c.certificationId}
-            >
+              key={c.certificationId}>
               {/* <Link
                 className="flex items-center justify-center h-32 xs:h-36 sm:h-36 md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
                 href={{

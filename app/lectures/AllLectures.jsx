@@ -2,9 +2,13 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { apiBaseUrl } from "@/lib/constants";
+
 import Loader from "@/ui/Loader";
 import ReactPlayer from "react-player/lazy";
+import { basePathApi } from "../Apicall/basePathApi";
+import { relatedLectures } from "../Apicall/endPoints";
+import { SC } from "../Apicall/ServerCall";
+
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -20,44 +24,44 @@ const AllLectures = ({ searchParams }) => {
   const currentURL = window.location.href;
 
   useEffect(() => {
-    const fetchLectures = async () => {
-      try {
-        const payload = {
-          examId: searchParams?.get('examId'),
-        };
-
-        const response = await fetch(`${apiBaseUrl}/api/related_lectures`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-
-        setData(jsonData.data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
-
     fetchLectures();
   }, []);
 
+  const fetchLectures = async () => {
+    try {
+      const payload = {
+        examId: searchParams?.get("examId"),
+      };
+
+      const response = await fetch(`${basePathApi}related_lectures`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      const jsonData = await response.json();
+
+      setData(jsonData.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
+
   useEffect(() => {
-    if (data && searchParams.get('videoId')) {
+    if (data && searchParams.get("videoId")) {
       const selected = data.find(
-        (lecture) => lecture.videoId === parseInt(searchParams.get('videoId'))
+        (lecture) => lecture.videoId === parseInt(searchParams.get("videoId"))
       );
       setSelectedLecture(selected);
     }
-  }, [data, searchParams.get('videoId')]); // Include data dependency
+  }, [data, searchParams.get("videoId")]); // Include data dependency
 
   const handleLectureClick = (lecture) => {
     setSelectedLecture(lecture);
@@ -69,7 +73,7 @@ const AllLectures = ({ searchParams }) => {
       <section className="lg:pt-20 pt-16">
         {/* section title */}
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams?.get('certification_Name')}
+          {searchParams?.get("certification_Name")}
         </h2>
         <Loader className="mt-6" />
       </section>
@@ -90,10 +94,11 @@ const AllLectures = ({ searchParams }) => {
       <div className="flex flex-col space-y-4 md:space-y-8">
         <div className="space-y-4">
           <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-            {searchParams?.get('certification_Name')} : {searchParams?.get('exam_Name')}
+            {searchParams?.get("certification_Name")} :{" "}
+            {searchParams?.get("exam_Name")}
           </h2>
           <p className="md:text-left text-center font-normal text-sm sm:text-base text-[#1C1C1C]">
-            {searchParams?.get('detail')}
+            {searchParams?.get("detail")}
           </p>
         </div>
         <div className="space-y-4">
@@ -126,8 +131,7 @@ const AllLectures = ({ searchParams }) => {
             </span>
             <TwitterShareButton
               url={currentURL}
-              title={selectedLecture && selectedLecture.video_Name}
-            >
+              title={selectedLecture && selectedLecture.video_Name}>
               <img
                 src="/twitter_icon.png"
                 alt="Twitter Icon"
@@ -138,8 +142,7 @@ const AllLectures = ({ searchParams }) => {
             </TwitterShareButton>
             <FacebookShareButton
               url={selectedLecture && selectedLecture.video_Url}
-              title={selectedLecture && selectedLecture.video_Name}
-            >
+              title={selectedLecture && selectedLecture.video_Name}>
               <img
                 src="/FacebookLogo(1).png"
                 alt="Facebook Icon"
@@ -150,8 +153,7 @@ const AllLectures = ({ searchParams }) => {
             </FacebookShareButton>
             <LinkedinShareButton
               url={selectedLecture && selectedLecture.video_Url}
-              title={selectedLecture && selectedLecture.video_Name}
-            >
+              title={selectedLecture && selectedLecture.video_Name}>
               <img
                 src="/linkedin_icon.png"
                 alt="LinkedIn Icon"
@@ -193,13 +195,13 @@ const AllLectures = ({ searchParams }) => {
                   pathname: "/lectures",
                   query: {
                     videoId: lecture.videoId,
-                    examId: searchParams?.get('examId'),
-                    vendorName: searchParams?.get('vendorName'),
-                    certificationId: searchParams?.get('certificationId'),
-                    certification_Name: searchParams?.get('certification_Name'),
-                    status: searchParams?.get('status'),
-                    exam_Name: searchParams?.get('exam_Name'),
-                    detail: searchParams?.get('detail'),
+                    examId: searchParams?.get("examId"),
+                    vendorName: searchParams?.get("vendorName"),
+                    certificationId: searchParams?.get("certificationId"),
+                    certification_Name: searchParams?.get("certification_Name"),
+                    status: searchParams?.get("status"),
+                    exam_Name: searchParams?.get("exam_Name"),
+                    detail: searchParams?.get("detail"),
                   },
                 }}
                 key={lecture.videoId}
@@ -209,13 +211,11 @@ const AllLectures = ({ searchParams }) => {
                     ? "bg-gray-100 px-2"
                     : ""
                 }`}
-                onClick={() => handleLectureClick(lecture)}
-              >
+                onClick={() => handleLectureClick(lecture)}>
                 <div
                   className={`text-black font-normal text-sm lg:text-base py-3 ${
                     i === 0 && "border-t"
-                  } ${i === data.length - 1 && "border-b"}`}
-                >
+                  } ${i === data.length - 1 && "border-b"}`}>
                   {" "}
                   {lecture.video_Name} - {lecture.video_PresentaionName}
                 </div>

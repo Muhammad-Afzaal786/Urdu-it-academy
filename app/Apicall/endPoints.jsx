@@ -9,7 +9,12 @@ export const coursesLibrary = "courses_library";
 export const OurCourse = "courses";
 export const Testimonial = "customer_reviews";
 export const HomeBlogs = "blogs";
-export const SearchData = "search"
+export const SearchData = "search";
+export const data_certificate = "certificates";
+export const relatedLectures = "related_lectures";
+
+
+
 
 
 
