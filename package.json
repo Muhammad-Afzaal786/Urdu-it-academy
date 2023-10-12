@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "npx serve@latest out",
-    "lint": "next lint"
+    "build": "next build ",
+    "start": "next start"   
+    
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",

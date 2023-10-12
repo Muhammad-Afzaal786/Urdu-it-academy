@@ -207,7 +207,7 @@ export default function Navbar() {
                     placeholder="Search"
                     type="search"
                     name="search"
-                    value={query}
+                    value={query}    
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyPress={handleKeyPress}
                   />
