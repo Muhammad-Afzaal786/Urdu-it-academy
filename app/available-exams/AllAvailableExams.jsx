@@ -13,7 +13,7 @@ const AllAvailableExams = ({ searchParams }) => {
     const fetchAvailbleExams = async () => {
       try {
         const payload = {
-          certificationId: searchParams.certificationId,
+          certificationId: searchParams.get('certificationId'),
         };
 
         const response = await fetch(`${apiBaseUrl}/api/available_exam`, {
@@ -45,7 +45,7 @@ const AllAvailableExams = ({ searchParams }) => {
       <section className="lg:pt-20 pt-16">
         {/* section title */}
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.certification_Name}
+          {searchParams.get('certification_Name')}
         </h2>
         <Loader className="mt-6" />
       </section>
@@ -65,15 +65,15 @@ const AllAvailableExams = ({ searchParams }) => {
       {/* section header */}
       <div className="flex flex-col space-y-4 md:space-y-8">
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.certification_Name}
+          {searchParams.get('certification_Name')}
           <sup>
             <span className="ml-4 border border-black px-5 text-center py-[6px] font-normal text-black text-xs rounded uppercase">
-              {searchParams.status}
+              {searchParams.get('status')}
             </span>
           </sup>
         </h2>
         <p className="md:text-left text-center font-normal text-sm sm:text-base text-[#1C1C1C]">
-          {searchParams.detail}
+          {searchParams.get('detail')}
         </p>
         <h3 className="font-bold text-black text-lg xl:text-2xl">
           Available exam courses
@@ -88,13 +88,13 @@ const AllAvailableExams = ({ searchParams }) => {
               href={{
                 pathname: "/lectures",
                 query: {
-                  vendorName: searchParams.vendorName,
-                  certification_Name: searchParams.certification_Name,
-                  certificationId: searchParams.certificationId,
+                  vendorName: searchParams.get('vendorName'),
+                  certification_Name: searchParams.get('certification_Name'),
+                  certificationId: searchParams.get('certificationId'),
                   examId: c.examId,
                   exam_Name: c.exam_Name,
-                  status: searchParams.status,
-                  detail: searchParams.detail,
+                  status: searchParams.get('status'),
+                  detail: searchParams.get('detail'),
                 },
               }}
               className="flex flex-col mb-5 lg:mb-[50px]"

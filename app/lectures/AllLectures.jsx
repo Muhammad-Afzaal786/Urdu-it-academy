@@ -23,7 +23,7 @@ const AllLectures = ({ searchParams }) => {
     const fetchLectures = async () => {
       try {
         const payload = {
-          examId: searchParams?.examId,
+          examId: searchParams?.get('examId'),
         };
 
         const response = await fetch(`${apiBaseUrl}/api/related_lectures`, {
@@ -51,13 +51,13 @@ const AllLectures = ({ searchParams }) => {
   }, []);
 
   useEffect(() => {
-    if (data && searchParams.videoId) {
+    if (data && searchParams.get('videoId')) {
       const selected = data.find(
-        (lecture) => lecture.videoId === parseInt(searchParams.videoId)
+        (lecture) => lecture.videoId === parseInt(searchParams.get('videoId'))
       );
       setSelectedLecture(selected);
     }
-  }, [data, searchParams.videoId]); // Include data dependency
+  }, [data, searchParams.get('videoId')]); // Include data dependency
 
   const handleLectureClick = (lecture) => {
     setSelectedLecture(lecture);
@@ -69,7 +69,7 @@ const AllLectures = ({ searchParams }) => {
       <section className="lg:pt-20 pt-16">
         {/* section title */}
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams?.certification_Name}
+          {searchParams?.get('certification_Name')}
         </h2>
         <Loader className="mt-6" />
       </section>
@@ -90,10 +90,10 @@ const AllLectures = ({ searchParams }) => {
       <div className="flex flex-col space-y-4 md:space-y-8">
         <div className="space-y-4">
           <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-            {searchParams?.certification_Name} : {searchParams?.exam_Name}
+            {searchParams?.get('certification_Name')} : {searchParams?.get('exam_Name')}
           </h2>
           <p className="md:text-left text-center font-normal text-sm sm:text-base text-[#1C1C1C]">
-            {searchParams?.detail}
+            {searchParams?.get('detail')}
           </p>
         </div>
         <div className="space-y-4">
@@ -193,13 +193,13 @@ const AllLectures = ({ searchParams }) => {
                   pathname: "/lectures",
                   query: {
                     videoId: lecture.videoId,
-                    examId: searchParams?.examId,
-                    vendorName: searchParams?.vendorName,
-                    certificationId: searchParams?.certificationId,
-                    certification_Name: searchParams?.certification_Name,
-                    status: searchParams?.status,
-                    exam_Name: searchParams?.exam_Name,
-                    detail: searchParams?.detail,
+                    examId: searchParams?.get('examId'),
+                    vendorName: searchParams?.get('vendorName'),
+                    certificationId: searchParams?.get('certificationId'),
+                    certification_Name: searchParams?.get('certification_Name'),
+                    status: searchParams?.get('status'),
+                    exam_Name: searchParams?.get('exam_Name'),
+                    detail: searchParams?.get('detail'),
                   },
                 }}
                 key={lecture.videoId}

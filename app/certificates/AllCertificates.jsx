@@ -13,7 +13,7 @@ const AllCertificates = ({ searchParams }) => {
     const fetchCertificates = async () => {
       try {
         const payload = {
-          vendorId: searchParams.vendorId,
+          vendorId: searchParams.get('vendorId'),
         };
         const response = await fetch(`${apiBaseUrl}/api/certificates`, {
           method: "POST",
@@ -44,7 +44,7 @@ const AllCertificates = ({ searchParams }) => {
       <section className="lg:pt-20 pt-16">
         {/* section title */}
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.vendorName} Courses
+          {searchParams.get('vendorName')} Courses
         </h2>
         <Loader className="mt-6" />
       </section>
@@ -64,7 +64,7 @@ const AllCertificates = ({ searchParams }) => {
       {/* section header */}
       <div className="flex flex-col space-y-4 md:space-y-8">
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
-          {searchParams.vendorName} Courses
+          {searchParams.get('vendorName')} Courses
         </h2>
         <p className="md:text-left text-center font-normal text-sm sm:text-base text-[#1C1C1C]">
           {data?.data[0].courseDetails.detail}
@@ -79,7 +79,7 @@ const AllCertificates = ({ searchParams }) => {
               className="flex flex-col mb-5 lg:mb-[50px]"
               key={c.certificationId}
             >
-              <Link
+              {/* <Link
                 className="flex items-center justify-center h-32 xs:h-36 sm:h-36 md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
                 href={{
                   pathname: "/available-exams",
@@ -102,10 +102,10 @@ const AllCertificates = ({ searchParams }) => {
                   }
                   alt=""
                 />
-              </Link>
+              </Link> */}
               {/* title */}
               <h3 className="font-bold lg:text-lg mt-4 md:text-base text-sm text-[#000000]">
-                <Link
+                {/* <Link
                   href={{
                     pathname: "/available-exams",
                     query: {
@@ -117,7 +117,7 @@ const AllCertificates = ({ searchParams }) => {
                   }}
                 >
                   {c.certification_Name}
-                </Link>
+                </Link> */}
               </h3>
             </div>
           ))}

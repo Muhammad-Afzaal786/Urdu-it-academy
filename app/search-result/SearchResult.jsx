@@ -14,7 +14,7 @@ const SearchResults = ({ searchParams }) => {
     const fetchSearch = async () => {
       try {
         const payload = {
-          search: searchParams?.query,
+          search: searchParams?.get('query'),
         };
 
         const response = await fetch(`${apiBaseUrl}/api/search`, {
@@ -39,7 +39,7 @@ const SearchResults = ({ searchParams }) => {
     };
 
     fetchSearch();
-  }, [searchParams.query]);
+  }, [searchParams.get('query')]);
 
   if (isLoading) {
     return (

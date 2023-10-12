@@ -1,27 +1,28 @@
-export const dynamic = "force-dynamic";
-
+"use client"
 import { Fragment } from "react";
 import DiscoverMore from "@/components/home/DiscoverMore";
 import AllLectures from "./AllLectures";
 import Breadcrumb from "@/ui/Breadcrumb";
+import { useSearchParams } from 'next/navigation'
 
 export const metadata = {
   title: "Lectures - Urdu It Academy",
 };
 
-export default function Lectures({ searchParams }) {
+export default function Lectures() {
+  const searchParams = useSearchParams();
   return (
     <Fragment>
       <Breadcrumb
         pages={[
           { name: "Home", href: "/" },
           { name: "Courses", href: "/courses" },
-          { name: searchParams.vendorName, href: "#" },
+          { name: searchParams.get('vendorName'), href: "#" },
           {
-            name: searchParams.certification_Name,
-            href: `/available-exams?certificationId=${searchParams.certificationId}&vendorName=${searchParams.vendorName}&certification_Name=${searchParams.certification_Name}&status=${searchParams.status}`,
+            name: searchParams.get('certification_Name'),
+            href: `/available-exams?certificationId=${searchParams.get('certificationId')}&vendorName=${searchParams.get('vendorName')}&certification_Name=${searchParams.get('certification_Name')}&status=${searchParams.get('status')}`,
           },
-          { name: searchParams.exam_Name, href: "#" },
+          { name: searchParams.get('exam_Name'), href: "#" },
         ]}
       />
       <AllLectures searchParams={searchParams} />

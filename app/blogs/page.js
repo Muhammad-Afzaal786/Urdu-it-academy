@@ -6,14 +6,15 @@ import dynamic from "next/dynamic";
 import { blogData } from "../Apicall/endPoints";
 import { SC } from "../Apicall/ServerCall";
 import Card from "./cards";
-
+import { useSearchParams } from 'next/navigation'
 // const Card = dynamic(() => import("./cards"), {
 //   loading: () => <p>Loading...</p>,
 // });
 
-export default function Blog({ searchParams }) {
+export default function Blog() {
+  const searchParams = useSearchParams()
   const [currentPage, setCurrentPage] = useState(
-    Number(searchParams.page) || 1
+    Number(searchParams.get('page')) || 1
   );
   const [totalPages, setTotalPages] = useState(1);
   const [productData, setProductData] = useState([]);
