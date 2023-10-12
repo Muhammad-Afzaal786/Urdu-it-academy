@@ -2,6 +2,12 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode : true,
+  distDir: "build",
+  swcMinify: true,
+  experimental : {
+    appDir: true
+  },
   images: {
     domains: ["www.urduitacademy.com"],
     unoptimized: true,
@@ -9,4 +15,4 @@ const nextConfig = {
   //output: "export",
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig;

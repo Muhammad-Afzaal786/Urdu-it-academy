@@ -3,8 +3,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { apiBaseUrl } from "@/lib/constants";
 import Loader from "@/ui/Loader";
+import { SC } from "../Apicall/ServerCall";
+import { SearchData } from "../Apicall/endPoints";
+import { basePathApi } from "../Apicall/basePathApi";
 
 const SearchResults = ({ searchParams }) => {
+  console.log(searchParams, "Search");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +21,7 @@ const SearchResults = ({ searchParams }) => {
           search: searchParams?.query,
         };
 
-        const response = await fetch(`${apiBaseUrl}/api/search`, {
+        const response = await fetch(`${basePathApi}/search`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -96,13 +100,11 @@ const SearchResults = ({ searchParams }) => {
                 }}
                 key={lecture.videoId}
                 type="button"
-                className={`cursor-pointer `}
-              >
+                className={`cursor-pointer `}>
                 <div
                   className={`text-black font-normal text-sm lg:text-base py-3 ${
                     i === 0 && "border-t"
-                  } ${i === data.length - 1 && "border-b"}`}
-                >
+                  } ${i === data.length - 1 && "border-b"}`}>
                   {" "}
                   {lecture.video_Name} - {lecture.video_PresentaionName}
                 </div>
