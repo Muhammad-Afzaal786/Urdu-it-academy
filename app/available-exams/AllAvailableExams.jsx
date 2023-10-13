@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Loader from "@/ui/Loader";
-import { apiBaseUrl } from "../Apicall/basePathApi";
+import { baseBathApi } from "../Apicall/basePathApi";
 
 const AllAvailableExams = ({ searchParams }) => {
   const [data, setData] = useState(null);
@@ -16,7 +16,7 @@ const AllAvailableExams = ({ searchParams }) => {
           certificationId: searchParams.get("certificationId"),
         };
 
-        const response = await fetch(`${apiBaseUrl}available_exam`, {
+        const response = await fetch(`${baseBathApi}available_exam`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -63,10 +63,10 @@ const AllAvailableExams = ({ searchParams }) => {
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}
-      <div className="flex flex-col space-y-4 md:space-y-8">
-        <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000]">
+      <div className="flex justify-center flex-col space-y-4 md:space-y-8">
+        <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000] ">
           {searchParams.get("certification_Name")}
-          <sup>
+          <sup className="">
             <span className="ml-4 border border-black px-5 text-center py-[6px] font-normal text-black text-xs rounded uppercase">
               {searchParams.get("status")}
             </span>

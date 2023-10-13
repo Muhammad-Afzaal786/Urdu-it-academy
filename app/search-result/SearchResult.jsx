@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { apiBaseUrl } from "@/lib/constants";
+
 import Loader from "@/ui/Loader";
-import { SC } from "../Apicall/ServerCall";
-import { SearchData } from "../Apicall/endPoints";
+
 import { basePathApi } from "../Apicall/basePathApi";
 
 const SearchResults = ({ searchParams }) => {

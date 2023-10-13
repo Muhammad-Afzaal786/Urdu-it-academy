@@ -7,40 +7,6 @@ import { blogData } from "../Apicall/endPoints";
 import { SC } from "../Apicall/ServerCall";
 import Card from "./cards";
 import { useSearchParams } from 'next/navigation'
-// const Card = dynamic(() => import("./cards"), {
-//   loading: () => <p>Loading...</p>,
-// });
-
-// export async function getServerSideProps(context) {
-//   const { query } = context;
-//   const currentPage = Number(query.page) || 1;
-
-//   try {
-//     const res = await SC.postCall(blogData);
-//     console.log(res, "API response");
-
-//     if (res && res.data) {
-//       const productData = res.data.data.data;
-//       const totalPages = res.data.data.last_page;
-
-//       return {
-//         props: {
-//           productData,
-//           currentPage,
-//           totalPages,
-//         },
-//       };
-//     } else {
-//       console.error("API response does not contain expected data.");
-//     }
-//   } catch (error) {
-//     console.error("API call failed:", error);
-//   }
-
-//   return {
-//     notFound: true,
-//   };
-// }
 
 
 export default function Blog() {

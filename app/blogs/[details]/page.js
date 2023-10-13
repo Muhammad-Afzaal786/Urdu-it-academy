@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Breadcrumb from "@/ui/Breadcrumb";
 import axios from "axios";
 import { basePathApi } from "@/app/Apicall/basePathApi";
+
+
 function Details({ params }) {
   const id = params.details;
 

@@ -6,8 +6,7 @@ import Link from "next/link";
 import Loader from "@/ui/Loader";
 import ReactPlayer from "react-player/lazy";
 import { basePathApi } from "../Apicall/basePathApi";
-import { relatedLectures } from "../Apicall/endPoints";
-import { SC } from "../Apicall/ServerCall";
+
 
 import {
   FacebookShareButton,
@@ -16,6 +15,7 @@ import {
 } from "next-share";
 
 const AllLectures = ({ searchParams }) => {
+  
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,6 +32,7 @@ const AllLectures = ({ searchParams }) => {
       const payload = {
         examId: searchParams?.get("examId"),
       };
+      console.log(payload, "all")
 
       const response = await fetch(`${basePathApi}related_lectures`, {
         method: "POST",
@@ -87,7 +88,7 @@ const AllLectures = ({ searchParams }) => {
       </div>
     );
   }
-
+  console.log(data, "lecture");
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}

@@ -10,34 +10,36 @@ const AllCertificates = ({ searchParams }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCertificates = async () => {
-      try {
-        const payload = {
-          vendorId: searchParams.get("vendorId"),
-        };
-        const response = await fetch(`${basePathApi}certificates`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
+    
 
     fetchCertificates();
   }, []);
+
+  const fetchCertificates = async () => {
+    try {
+      const payload = {
+        vendorId: searchParams.get("vendorId"),
+      };
+      const response = await fetch(`${basePathApi}certificates`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      const jsonData = await response.json();
+
+      setData(jsonData);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -78,7 +80,7 @@ const AllCertificates = ({ searchParams }) => {
             <div
               className="flex flex-col mb-5 lg:mb-[50px]"
               key={c.certificationId}>
-              {/* <Link
+              <Link
                 className="flex items-center justify-center h-32 xs:h-36 sm:h-36 md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
                 href={{
                   pathname: "/available-exams",
@@ -101,10 +103,10 @@ const AllCertificates = ({ searchParams }) => {
                   }
                   alt=""
                 />
-              </Link> */}
+              </Link>
               {/* title */}
               <h3 className="font-bold lg:text-lg mt-4 md:text-base text-sm text-[#000000]">
-                {/* <Link
+                <Link
                   href={{
                     pathname: "/available-exams",
                     query: {
@@ -116,7 +118,7 @@ const AllCertificates = ({ searchParams }) => {
                   }}
                 >
                   {c.certification_Name}
-                </Link> */}
+                </Link>
               </h3>
             </div>
           ))}
