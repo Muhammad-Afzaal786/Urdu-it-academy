@@ -5,8 +5,9 @@ import Link from "next/link";
 
 import Loader from "@/ui/Loader";
 import ReactPlayer from "react-player/lazy";
-import { basePathApi } from "../Apicall/basePathApi";
-
+//import { basePathApi } from "../Apicall/basePathApi";
+import { relatedLectures } from "../Apicall/endPoints";
+import { SC } from "../Apicall/ServerCall";
 
 import {
   FacebookShareButton,
@@ -24,36 +25,43 @@ const AllLectures = ({ searchParams }) => {
   const currentURL = window.location.href;
 
   useEffect(() => {
-    fetchLectures();
+    const payload = {
+      examId: searchParams?.get("examId"),
+    };
+    SC.postCall(relatedLectures, payload).then((res) => {
+      setData(res.data.data)
+      setIsLoading(false)
+    })
+    //fetchLectures();
   }, []);
 
-  const fetchLectures = async () => {
-    try {
-      const payload = {
-        examId: searchParams?.get("examId"),
-      };
-      console.log(payload, "all")
+  // const fetchLectures = async () => {
+  //   try {
+  //     const payload = {
+  //       examId: searchParams?.get("examId"),
+  //     };
+  //     console.log(payload, "all")
 
-      const response = await fetch(`${basePathApi}related_lectures`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+  //     const response = await fetch(`${basePathApi}related_lectures`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-      const jsonData = await response.json();
+  //     if (!response.ok) {
+  //       throw new Error("Request failed");
+  //     }
+  //     const jsonData = await response.json();
 
-      setData(jsonData.data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      setError(error.message);
-    }
-  };
+  //     setData(jsonData.data);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError(error.message);
+  //   }
+  // };
 
   useEffect(() => {
     if (data && searchParams.get("videoId")) {
@@ -88,7 +96,7 @@ const AllLectures = ({ searchParams }) => {
       </div>
     );
   }
-  console.log(data, "lecture");
+  console.log(data, selectedLecture, "lecture");
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}
@@ -102,17 +110,31 @@ const AllLectures = ({ searchParams }) => {
             {searchParams?.get("detail")}
           </p>
         </div>
+       { data && data.map((val, idx) => {
+          
+          return (
+            <>
         <div className="space-y-4">
           <h3 className="font-bold text-black text-lg xl:text-2xl">
-            {selectedLecture && selectedLecture.video_Name}
+            {val && val.video_Name}
           </h3>
           <p className="text-black text-lg font-normal">
-            {selectedLecture && selectedLecture.video_Description}
+            {val && val.video_Description}
           </p>
         </div>
-      </div>
+           
+        </>
+        )
+      })
+        }
+        </div>
       {/* video player */}
-      <div className="flex flex-col  mt-8">
+      {
+        data && data.map((val, idx) => {
+          
+          return (
+            <>
+            <div div className="flex flex-col  mt-8" key={idx}>
         <div className="h-[270px] sm:h-[350px] md:h-[540px] player-wrapper">
           <ReactPlayer
             width="100%"
@@ -120,8 +142,9 @@ const AllLectures = ({ searchParams }) => {
             muted={false}
             height="100%"
             className="react-player"
-            url={selectedLecture && selectedLecture.video_Url}
+            url={val && val.video_Url}
           />
+          {/* <div className="product-des  mb-5" dangerouslySetInnerHTML={{ __html:val && val.video_Url }}></div> */}
         </div>
         {/* share */}
         <div className="flex items-center justify-between  mt-10">
@@ -132,7 +155,7 @@ const AllLectures = ({ searchParams }) => {
             </span>
             <TwitterShareButton
               url={currentURL}
-              title={selectedLecture && selectedLecture.video_Name}>
+              title={val && val.video_Name}>
               <img
                 src="/twitter_icon.png"
                 alt="Twitter Icon"
@@ -142,8 +165,8 @@ const AllLectures = ({ searchParams }) => {
               />
             </TwitterShareButton>
             <FacebookShareButton
-              url={selectedLecture && selectedLecture.video_Url}
-              title={selectedLecture && selectedLecture.video_Name}>
+              url={val && val.video_Url}
+              title={val && val.video_Name}>
               <img
                 src="/FacebookLogo(1).png"
                 alt="Facebook Icon"
@@ -153,8 +176,8 @@ const AllLectures = ({ searchParams }) => {
               />
             </FacebookShareButton>
             <LinkedinShareButton
-              url={selectedLecture && selectedLecture.video_Url}
-              title={selectedLecture && selectedLecture.video_Name}>
+              url={val && val.video_Url}
+              title={val && val.video_Name}>
               <img
                 src="/linkedin_icon.png"
                 alt="LinkedIn Icon"
@@ -181,6 +204,11 @@ const AllLectures = ({ searchParams }) => {
         </div>
       </div>
 
+            </>
+          )
+        })
+      }
+        
       {/* more lectures */}
       <div className="flex flex-col mt-8 md:mt-12 lg:mt-20">
         <h3 className="font-bold text-black text-lg xl:text-2xl">

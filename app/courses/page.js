@@ -13,7 +13,8 @@ export default function Courses() {
       <Breadcrumb
         pages={[
           { name: "Home", href: "/" },
-          { name: "Courses", href: "#" },
+          { name: "Courses", href: "/courses" },
+          
         ]}
       />
       <AllCourses />

@@ -3,42 +3,50 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Loader from "@/ui/Loader";
 import { baseBathApi } from "../Apicall/basePathApi";
-
+import { availableExam } from "../Apicall/endPoints";
+import { SC } from "../Apicall/ServerCall";
 const AllAvailableExams = ({ searchParams }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchAvailbleExams = async () => {
-      try {
-        const payload = {
-          certificationId: searchParams.get("certificationId"),
-        };
-
-        const response = await fetch(`${baseBathApi}available_exam`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-
-        setData(jsonData.data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
+    const payload = {
+      certificationId: searchParams.get("certificationId"),
     };
-
+    SC.postCall(availableExam, payload).then((res) => {
+      setData(res.data.data);
+      setIsLoading(false);
+    })
     fetchAvailbleExams();
   }, []);
+  const fetchAvailbleExams = async () => {
+    try {
+      const payload = {
+        certificationId: searchParams.get("certificationId"),
+      };
+
+      const response = await fetch(`${baseBathApi}available_exam`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      const jsonData = await response.json();
+
+      setData(jsonData.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
+  console.log(data, "Api Data");
 
   if (isLoading) {
     return (
@@ -59,6 +67,10 @@ const AllAvailableExams = ({ searchParams }) => {
       </div>
     );
   }
+  console.log("vendorName:", searchParams.get("vendorName"));
+  console.log("certification_Name:", searchParams.get("certification_Name"));
+  console.log("certificationId:", searchParams.get("certificationId"));
+  console.log("status:", searchParams.get("status"));
 
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">

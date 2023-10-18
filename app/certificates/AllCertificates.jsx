@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { basePathApi } from "../Apicall/basePathApi";
 import Loader from "@/ui/Loader";
-
+import { SC } from "../Apicall/ServerCall"
+import {relatedLectures} from "../Apicall/endPoints"
 const AllCertificates = ({ searchParams }) => {
   const [data, setData] = useState(null);
+ 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     
-
+   
     fetchCertificates();
   }, []);
 
@@ -60,7 +62,11 @@ const AllCertificates = ({ searchParams }) => {
       </div>
     );
   }
-
+  console.log("vendorName:", searchParams.get('vendorName'));
+  console.log("certification_Name:", searchParams.get('certification_Name'));
+  console.log("certificationId:", searchParams.get('certificationId'));
+  console.log("status:", searchParams.get('status'));
+  
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}
@@ -76,8 +82,11 @@ const AllCertificates = ({ searchParams }) => {
       <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 mt-9 lg:mt-12">
         {data !== null &&
           !isLoading &&
-          data?.data.map((c) => (
-            <div
+          data?.data.map((c) => {
+            
+            return (
+              <>
+               <div
               className="flex flex-col mb-5 lg:mb-[50px]"
               key={c.certificationId}>
               <Link
@@ -114,6 +123,7 @@ const AllCertificates = ({ searchParams }) => {
                       certification_Name: c.certification_Name,
                       detail: c.detail,
                       vendorName: searchParams.vendorName,
+                      examId: searchParams.examId
                     },
                   }}
                 >
@@ -121,7 +131,9 @@ const AllCertificates = ({ searchParams }) => {
                 </Link>
               </h3>
             </div>
-          ))}
+              </>
+            )
+          })}
       </div>
     </section>
   );

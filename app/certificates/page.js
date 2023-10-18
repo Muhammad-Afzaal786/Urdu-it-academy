@@ -17,7 +17,9 @@ export default function Certificates() {
         pages={[
           { name: "Home", href: "/" },
           { name: "Courses", href: "/courses" },
-          { name: searchParams.get('vendorName'), href: "#" },
+        
+
+          { name: searchParams.get('vendorName'), href: "/available-exams" },
         ]}
       />
       <AllCertificates searchParams={searchParams} />
