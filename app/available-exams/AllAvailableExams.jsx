@@ -67,10 +67,7 @@ const AllAvailableExams = ({ searchParams }) => {
       </div>
     );
   }
-  console.log("vendorName:", searchParams.get("vendorName"));
-  console.log("certification_Name:", searchParams.get("certification_Name"));
-  console.log("certificationId:", searchParams.get("certificationId"));
-  console.log("status:", searchParams.get("status"));
+  
 
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">

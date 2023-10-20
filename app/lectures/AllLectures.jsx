@@ -110,23 +110,10 @@ const AllLectures = ({ searchParams }) => {
             {searchParams?.get("detail")}
           </p>
         </div>
-       { data && data.map((val, idx) => {
-          
-          return (
-            <>
-        <div className="space-y-4">
-          <h3 className="font-bold text-black text-lg xl:text-2xl">
-            {val && val.video_Name}
-          </h3>
-          <p className="text-black text-lg font-normal">
-            {val && val.video_Description}
-          </p>
-        </div>
+      
+       
            
-        </>
-        )
-      })
-        }
+      
         </div>
       {/* video player */}
       {
@@ -134,6 +121,16 @@ const AllLectures = ({ searchParams }) => {
           
           return (
             <>
+              <div className="mt-10">
+              <div className="space-y-4">
+          <h3 className="font-bold text-black text-lg xl:text-2xl">
+            {val && val.video_Name}
+          </h3>
+          <p className="text-black text-lg font-normal">
+            {val && val.video_Description}
+          </p>
+        </div>
+              </div>
             <div div className="flex flex-col  mt-8" key={idx}>
         <div className="h-[270px] sm:h-[350px] md:h-[540px] player-wrapper">
           <ReactPlayer
@@ -220,6 +217,7 @@ const AllLectures = ({ searchParams }) => {
             !isLoading &&
             data?.map((lecture, i) => (
               <Link
+                
                 href={{
                   pathname: "/lectures",
                   query: {
@@ -233,7 +231,7 @@ const AllLectures = ({ searchParams }) => {
                     detail: searchParams?.get("detail"),
                   },
                 }}
-                key={lecture.videoId}
+                key={lecture.videoId || i}
                 type="button"
                 className={`cursor-pointer ${
                   selectedLecture?.videoId === lecture.videoId

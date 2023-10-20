@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { basePathApi } from "../Apicall/basePathApi";
 import Loader from "@/ui/Loader";
-import { SC } from "../Apicall/ServerCall"
-import {relatedLectures} from "../Apicall/endPoints"
+//import { SC } from "../Apicall/ServerCall"
+//import {relatedLectures} from "../Apicall/endPoints"
 const AllCertificates = ({ searchParams }) => {
   const [data, setData] = useState(null);
  
@@ -62,10 +62,7 @@ const AllCertificates = ({ searchParams }) => {
       </div>
     );
   }
-  console.log("vendorName:", searchParams.get('vendorName'));
-  console.log("certification_Name:", searchParams.get('certification_Name'));
-  console.log("certificationId:", searchParams.get('certificationId'));
-  console.log("status:", searchParams.get('status'));
+  
   
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
@@ -97,8 +94,8 @@ const AllCertificates = ({ searchParams }) => {
                     certificationId: c.certificationId,
                     certification_Name: c.certification_Name,
                     detail: c.detail,
-                    vendorName: searchParams.vendorName,
-                    vendorId: searchParams.vendorId,
+                    vendorName: searchParams.get("vendorName"),
+                    vendorId: searchParams.get("vendorId"),
                     status: c.status,
                   },
                 }}
