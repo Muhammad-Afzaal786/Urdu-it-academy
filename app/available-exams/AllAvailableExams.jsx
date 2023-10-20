@@ -18,35 +18,35 @@ const AllAvailableExams = ({ searchParams }) => {
       setData(res.data.data);
       setIsLoading(false);
     })
-    fetchAvailbleExams();
+    //fetchAvailbleExams();
   }, []);
-  const fetchAvailbleExams = async () => {
-    try {
-      const payload = {
-        certificationId: searchParams.get("certificationId"),
-      };
+  // const fetchAvailbleExams = async () => {
+  //   try {
+  //     const payload = {
+  //       certificationId: searchParams.get("certificationId"),
+  //     };
 
-      const response = await fetch(`${baseBathApi}available_exam`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+  //     const response = await fetch(`${baseBathApi}available_exam`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-      const jsonData = await response.json();
+  //     if (!response.ok) {
+  //       throw new Error("Request failed");
+  //     }
+  //     const jsonData = await response.json();
 
-      setData(jsonData.data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      setError(error.message);
-    }
-  };
-  console.log(data, "Api Data");
+  //     setData(jsonData.data);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError(error.message);
+  //   }
+  // };
+ 
 
   if (isLoading) {
     return (
@@ -68,9 +68,10 @@ const AllAvailableExams = ({ searchParams }) => {
     );
   }
   
-
+console.log(data, "videoooooooooo")
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
+      
       {/* section header */}
       <div className="flex justify-center flex-col space-y-4 md:space-y-8">
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000] ">
@@ -102,6 +103,7 @@ const AllAvailableExams = ({ searchParams }) => {
                   certificationId: searchParams.get("certificationId"),
                   examId: c.examId,
                   exam_Name: c.exam_Name,
+                  video_name: c.video_Name,
                   status: searchParams.get("status"),
                   detail: searchParams.get("detail"),
                 },

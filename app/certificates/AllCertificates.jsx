@@ -97,6 +97,7 @@ const AllCertificates = ({ searchParams }) => {
                     vendorName: searchParams.get("vendorName"),
                     vendorId: searchParams.get("vendorId"),
                     status: c.status,
+                    
                   },
                 }}
               >

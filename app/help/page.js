@@ -7,7 +7,6 @@ import { SC } from "../Apicall/ServerCall";
 import Link from "next/link";
 import { dataButton } from "@/components/helper/helper";
 
-
 function HelpPage() {
   let vender_Name;
   let index = 0;
@@ -30,8 +29,8 @@ function HelpPage() {
   };
 
   const getButtonValues = (id) => {
-   // Set the selected button
-console.log(id,"id")
+    // Set the selected button
+    console.log(id, "id");
     if (id === "#") {
       setFilterData(data);
     } else {
@@ -39,7 +38,7 @@ console.log(id,"id")
       filterDataas = data.filter((val) => {
         return val.link_description[0] == id;
       });
-     
+
       setFilterData(filterDataas);
     }
   };
@@ -108,11 +107,8 @@ console.log(id,"id")
                   );
                 } else {
                   return (
-                    
                     <div className="relative top-[-350px] right-[-350px]">
-                     
                       <div className=" ">
-                    
                         <p className="text-[#337ab7] focus:text-[#cc3333] hover:text-[#cc3333] text-sm mb-1 pl-20  ">
                           <Link href={elem.link_address}>
                             {elem.link_description}

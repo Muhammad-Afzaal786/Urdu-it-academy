@@ -11,6 +11,7 @@ export const metadata = {
 
 export default function Lectures() {
   const searchParams = useSearchParams();
+  console.log(searchParams.get("vendorName"), ".....................")
   
   console.log(searchParams, " Search params data")
   return (
@@ -18,11 +19,11 @@ export default function Lectures() {
       <Breadcrumb
         pages={[
           { name: "Home", href: "/" },
-          { name: "Courses", href: `/courses?vendorId=${searchParams.get("vendorId")}&vendorName=${searchParams.get('vendorName')}` },
-          { name: searchParams.get('vendorName') || "Microsoft", href: "#" },
+          { name: "Courses", href: "/couese" },
+          { name: searchParams.get('vendorName'), href: "#" },
           {
             name: searchParams.get('certification_Name'),
-            href: `/available-exams?certificationId=${searchParams.get('certificationId')}&vendorName=${searchParams.get('vendorName')}&certification_Name=${searchParams.get('certification_Name')}&status=${searchParams.get('status')}`,
+            href: `/available-exams?certificationId=${searchParams.certificationId}&vendorName=${searchParams.vendorName}&certification_Name=${searchParams.certification_Name}&status=${searchParams.status}`,
           },
         
           { name: searchParams.get('exam_Name'), href: "#" },
