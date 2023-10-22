@@ -14,7 +14,7 @@ import {
 } from "next-share";
 
 const AllLectures = ({ searchParams }) => {
-  console.log(searchParams.get("video_Name"), "Lectures Search params");
+  //console.log(searchParams.get("video_Name"), "Lectures Search params");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +42,7 @@ const AllLectures = ({ searchParams }) => {
         const jsonData = await response.json();
 
         setData(jsonData.data);
-        setSelectedLecture(jsonData.data)
+        setSelectedLecture(jsonData.data);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -51,21 +51,23 @@ const AllLectures = ({ searchParams }) => {
     };
 
     fetchLectures();
-    
   }, []);
-  console.log(data, "All lectures");
-  
+  console.log(data, "all lec data");
+  useEffect(() => {
+    if (data) {
+      const selected = data.find(
+        (lecture) => lecture.videoId === parseInt(searchParams.get("videoId"))
+      );
+      setSelectedLecture(selected);
+      console.log(selected, "selected");
+    }
+  }, [searchParams, data]);
 
-  const handleLectureClick = (id) => {
-   console.log(id, "hhhhh")
-    const selected = data.find((lecture) => {
-      return lecture.videoId == id.videoId;   
-    });
-    setSelectedLecture(selected);
-   // setSelectedLecture(lecture);
+  const handleLectureClick = (lecture) => {
+    setSelectedLecture(lecture);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-console.log(selectedLecture, "seee")
+  console.log(selectedLecture, "seee");
   if (isLoading) {
     return (
       <section className="lg:pt-20 pt-16">
@@ -102,10 +104,12 @@ console.log(selectedLecture, "seee")
         {
           <div className="space-y-4">
             <h3 className="font-bold text-black text-lg xl:text-2xl">
-              {selectedLecture && selectedLecture.video_Name}
+              {(selectedLecture && selectedLecture.video_Name) ||
+                data[0].video_Name}
             </h3>
             <p className="text-black text-lg font-normal">
-              {selectedLecture && selectedLecture.video_Description}
+              {(selectedLecture && selectedLecture.video_Description) ||
+                data[0].video_Description}
             </p>
           </div>
         }
@@ -119,7 +123,10 @@ console.log(selectedLecture, "seee")
             muted={false}
             height="100%"
             className="react-player"
-            url={selectedLecture && selectedLecture.video_Url}
+            url={
+              (selectedLecture && selectedLecture.video_Url) ||
+              (data && data.video_Url)
+            }
           />
         </div>
         {/* share */}
@@ -195,13 +202,13 @@ console.log(selectedLecture, "seee")
                   pathname: "/lectures",
                   query: {
                     videoId: lecture.videoId,
-                    examId: searchParams?.examId,
-                    vendorName: searchParams?.vendorName,
-                    certificationId: searchParams?.certificationId,
-                    certification_Name: searchParams?.certification_Name,
-                    status: searchParams?.status,
-                    exam_Name: searchParams?.exam_Name,
-                    detail: searchParams?.detail,
+                    examId: searchParams?.get("examId"),
+                    vendorName: searchParams?.get("vendorName"),
+                    certificationId: searchParams?.get("certificationId"),
+                    certification_Name: searchParams?.get("certification_Name"),
+                    status: searchParams?.get("status"),
+                    exam_Name: searchParams?.get("exam_Name"),
+                    detail: searchParams?.get("detail"),
                   },
                 }}
                 key={lecture.videoId}
