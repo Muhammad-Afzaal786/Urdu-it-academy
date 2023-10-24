@@ -5,22 +5,24 @@ import Link from "next/link";
 import { basePathApi } from "../Apicall/basePathApi";
 import Loader from "@/ui/Loader";
 import ReactPlayer from "react-player/lazy";
-import { relatedLectures } from "../Apicall/endPoints";
-import { SC } from "../Apicall/ServerCall";
+//import { relatedLectures } from "../Apicall/endPoints";
+//import { SC } from "../Apicall/ServerCall";
 import {
   FacebookShareButton,
   TwitterShareButton,
   LinkedinShareButton,
 } from "next-share";
 
-const AllLectures = ({ searchParams }) => {
-  //console.log(searchParams.get("video_Name"), "Lectures Search params");
+const AllLectures = ({searchParams}) => {
+  //console.log(searchParams.get("vendorId"), "Lectures Search params");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLecture, setSelectedLecture] = useState(data);
 
   const currentURL = window.location.href;
+
+  // console.log(videoFirstUrl, "Show First url");
 
   useEffect(() => {
     const fetchLectures = async () => {
@@ -44,6 +46,8 @@ const AllLectures = ({ searchParams }) => {
         setData(jsonData.data);
         setSelectedLecture(jsonData.data);
         setIsLoading(false);
+
+        console.log(videoFirstUrl, "First url");
       } catch (error) {
         setIsLoading(false);
         setError(error.message);
@@ -125,7 +129,7 @@ const AllLectures = ({ searchParams }) => {
             className="react-player"
             url={
               (selectedLecture && selectedLecture.video_Url) ||
-              (data && data.video_Url)
+              (data && data[0].video_Url)
             }
           />
         </div>
@@ -204,6 +208,7 @@ const AllLectures = ({ searchParams }) => {
                     videoId: lecture.videoId,
                     examId: searchParams?.get("examId"),
                     vendorName: searchParams?.get("vendorName"),
+                    vendorId: searchParams?.get("vendorId"),
                     certificationId: searchParams?.get("certificationId"),
                     certification_Name: searchParams?.get("certification_Name"),
                     status: searchParams?.get("status"),

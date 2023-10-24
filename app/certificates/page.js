@@ -19,7 +19,7 @@ export default function Certificates() {
           { name: "Courses", href: "/courses" },
         
 
-          { name: searchParams.get('vendorName'), href: "/available-exams" },
+          { name: searchParams.get('vendorName'), href: `certificates?vendorId=${searchParams.get("vendorId" )}&vendorName=${searchParams.get("vendorName" )}` },
         ]}
       />
       <AllCertificates searchParams={searchParams} />

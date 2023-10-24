@@ -3,17 +3,16 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { basePathApi } from "../Apicall/basePathApi";
 import Loader from "@/ui/Loader";
+import { SC } from "../Apicall/ServerCall";
 //import { SC } from "../Apicall/ServerCall"
-//import {relatedLectures} from "../Apicall/endPoints"
+import { data_certificate } from "../Apicall/endPoints";
 const AllCertificates = ({ searchParams }) => {
   const [data, setData] = useState(null);
- 
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    
-   
     fetchCertificates();
   }, []);
 
@@ -34,6 +33,8 @@ const AllCertificates = ({ searchParams }) => {
         throw new Error("Request failed");
       }
       const jsonData = await response.json();
+      console.log(jsonData.data, "All certificate data");
+      localStorage.setItem(jsonData.data.vendorId, "VendorId");
 
       setData(jsonData);
       setIsLoading(false);
@@ -62,8 +63,7 @@ const AllCertificates = ({ searchParams }) => {
       </div>
     );
   }
-  
-  
+
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}
@@ -80,57 +80,54 @@ const AllCertificates = ({ searchParams }) => {
         {data !== null &&
           !isLoading &&
           data?.data.map((c) => {
-            
             return (
               <>
-               <div
-              className="flex flex-col mb-5 lg:mb-[50px]"
-              key={c.certificationId}>
-              <Link
-                className="flex items-center justify-center h-32 xs:h-36 sm:h-36 md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
-                href={{
-                  pathname: "/available-exams",
-                  query: {
-                    certificationId: c.certificationId,
-                    certification_Name: c.certification_Name,
-                    detail: c.detail,
-                    vendorName: searchParams.get("vendorName"),
-                    vendorId: searchParams.get("vendorId"),
-                    status: c.status,
-                    
-                  },
-                }}
-              >
-                <img
-                  src={
-                    c.courseDetails.vendor_ImageLink.startsWith("http://") ||
-                    c.courseDetails.vendor_ImageLink.startsWith("http")
-                      ? c.courseDetails.vendor_ImageLink
-                      : "/image.png"
-                  }
-                  alt=""
-                />
-              </Link>
-              {/* title */}
-              <h3 className="font-bold lg:text-lg mt-4 md:text-base text-sm text-[#000000]">
-                <Link
-                  href={{
-                    pathname: "/available-exams",
-                    query: {
-                      certificationId: c.certificationId,
-                      certification_Name: c.certification_Name,
-                      detail: c.detail,
-                      vendorName: searchParams.vendorName,
-                      examId: searchParams.examId
-                    },
-                  }}
-                >
-                  {c.certification_Name}
-                </Link>
-              </h3>
-            </div>
+                <div
+                  className="flex flex-col mb-5 lg:mb-[50px]"
+                  key={c.certificationId}>
+                  <Link
+                    className="flex items-center justify-center h-32 xs:h-36 sm:h-36 md:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2"
+                    href={{
+                      pathname: "/available-exams",
+                      query: {
+                        certificationId: c.certificationId,
+                        certification_Name: c.certification_Name,
+                        detail: c.detail,
+                        vendorName: searchParams.get("vendorName"),
+                        vendorId: searchParams.get("vendorId"),
+                        status: c.status,
+                      },
+                    }}>
+                    <img
+                      src={
+                        c.courseDetails.vendor_ImageLink.startsWith(
+                          "http://"
+                        ) || c.courseDetails.vendor_ImageLink.startsWith("http")
+                          ? c.courseDetails.vendor_ImageLink
+                          : "/image.png"
+                      }
+                      alt=""
+                    />
+                  </Link>
+                  {/* title */}
+                  <h3 className="font-bold lg:text-lg mt-4 md:text-base text-sm text-[#000000]">
+                    <Link
+                      href={{
+                        pathname: "/available-exams",
+                        query: {
+                          certificationId: c.certificationId,
+                          certification_Name: c.certification_Name,
+                          detail: c.detail,
+                          vendorName: searchParams.get("vendorName"),
+                          examId: searchParams.get("examId"),
+                        },
+                      }}>
+                      {c.certification_Name || data?.data.certification_Name}
+                    </Link>
+                  </h3>
+                </div>
               </>
-            )
+            );
           })}
       </div>
     </section>

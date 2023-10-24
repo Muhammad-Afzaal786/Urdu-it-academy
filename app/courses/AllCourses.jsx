@@ -91,6 +91,7 @@ const AllCourses = () => {
                     pathname: "/certificates",
                     query: {
                       vendorId: course.vendorId,
+                     // vendorId: course.vendorId,
                       vendorName: course.vendor_Name,
                     },
                   }}>

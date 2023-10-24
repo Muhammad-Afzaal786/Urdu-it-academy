@@ -17,7 +17,7 @@ const AllAvailableExams = ({ searchParams }) => {
     SC.postCall(availableExam, payload).then((res) => {
       setData(res.data.data);
       setIsLoading(false);
-    })
+    });
     //fetchAvailbleExams();
   }, []);
   // const fetchAvailbleExams = async () => {
@@ -46,7 +46,6 @@ const AllAvailableExams = ({ searchParams }) => {
   //     setError(error.message);
   //   }
   // };
- 
 
   if (isLoading) {
     return (
@@ -67,11 +66,10 @@ const AllAvailableExams = ({ searchParams }) => {
       </div>
     );
   }
-  
-console.log(data, "videoooooooooo")
+
+  console.log(data, "videoooooooooo");
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
-      
       {/* section header */}
       <div className="flex justify-center flex-col space-y-4 md:space-y-8">
         <h2 className="font-bold md:text-left text-center lg:text-4xl md:text-2xl text-xl text-[#000000] ">
@@ -99,6 +97,7 @@ console.log(data, "videoooooooooo")
                 pathname: "/lectures",
                 query: {
                   vendorName: searchParams.get("vendorName"),
+                  vendorId: searchParams.get("vendorId"),
                   certification_Name: searchParams.get("certification_Name"),
                   certificationId: searchParams.get("certificationId"),
                   examId: c.examId,
