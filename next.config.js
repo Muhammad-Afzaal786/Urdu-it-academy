@@ -1,6 +1,5 @@
 
-
-/** @type {import('next').NextConfig} */
+//  @type {import('next').NextConfig} 
 const nextConfig = {
   reactStrictMode : true,
   distDir: "build",
@@ -12,7 +11,7 @@ const nextConfig = {
     domains: ["www.urduitacademy.com"],
     unoptimized: true,
   },
-  //output: "export",
+  output: "export",
 };
 
 module.exports = nextConfig;

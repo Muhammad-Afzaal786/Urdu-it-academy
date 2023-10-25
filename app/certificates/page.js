@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { Fragment } from "react";
 import DiscoverMore from "@/components/home/DiscoverMore";
 import Breadcrumb from "@/ui/Breadcrumb";
 import AllCertificates from "./AllCertificates";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
 
 export const metadata = {
   title: "Certificates - Urdu It Academy",
@@ -17,9 +17,10 @@ export default function Certificates() {
         pages={[
           { name: "Home", href: "/" },
           { name: "Courses", href: "/courses" },
-        
-
-          { name: searchParams.get('vendorName'), href: `certificates?vendorId=${searchParams.get("vendorId" )}&vendorName=${searchParams.get("vendorName" )}` },
+          {
+            name: searchParams.get("vendorName"),
+            href: "#",
+          },
         ]}
       />
       <AllCertificates searchParams={searchParams} />

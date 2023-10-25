@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { apiBaseUrl } from "@/lib/constants";
@@ -7,9 +8,11 @@ import Loader from "@/ui/Loader";
 import { SC } from "../Apicall/ServerCall";
 import { coursesLibrary } from "@/app/Apicall/endPoints";
 const AllCourses = () => {
+  
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
   
@@ -91,7 +94,7 @@ const AllCourses = () => {
                     pathname: "/certificates",
                     query: {
                       vendorId: course.vendorId,
-                     // vendorId: course.vendorId,
+                    
                       vendorName: course.vendor_Name,
                     },
                   }}>

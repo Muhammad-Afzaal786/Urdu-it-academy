@@ -30,7 +30,9 @@ export default function Lectures() {
               "vendorName"
             )}&certification_Name=${searchParams.get(
               "certification_Name"
-            )}&status=${searchParams.get("status")}`,
+            )}&status=${searchParams.get("status")}&examId=${searchParams.get(
+              "examId"
+            )}&exam_Name=${searchParams.get("exam_Name")}`,
           },
 
           { name: searchParams.get("exam_Name"), href: "#" },

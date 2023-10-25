@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+
+import { Fragment, useLocation } from "react";
 import DiscoverMore from "@/components/home/DiscoverMore";
 import Breadcrumb from "@/ui/Breadcrumb";
 import AllCourses from "./AllCourses";
@@ -8,6 +9,8 @@ export const metadata = {
 };
 
 export default function Courses() {
+  
+ 
   return (
     <Fragment>
       <Breadcrumb
