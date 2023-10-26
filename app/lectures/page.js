@@ -19,20 +19,27 @@ export default function Lectures() {
         pages={[
           { name: "Home", href: "/" },
           { name: "Courses", href: "/courses" },
-          { name: searchParams.get("vendorName"), href: "#" },
+          {
+            name: searchParams.get("vendorName"),
+            href: `/certificates?vendorId=${searchParams.get(
+              "vendorId"
+            )}&vendorName=${searchParams.get("vendorName")}`,
+          },
           {
             name: searchParams.get("certification_Name"),
             href: `/available-exams?certificationId=${searchParams.get(
               "certificationId"
+            )}&certification_Name=${searchParams.get(
+              "certification_Name"
+            )}&examId=${searchParams.get(
+              "examId"
+            )}&exam_Name=${searchParams.get(
+              "exam_Name"
             )}&vendorId=${searchParams.get(
               "vendorId"
             )}&vendorName=${searchParams.get(
               "vendorName"
-            )}&certification_Name=${searchParams.get(
-              "certification_Name"
-            )}&status=${searchParams.get("status")}&examId=${searchParams.get(
-              "examId"
-            )}&exam_Name=${searchParams.get("exam_Name")}`,
+            )}&status=${searchParams.get("status")}`,
           },
 
           { name: searchParams.get("exam_Name"), href: "#" },

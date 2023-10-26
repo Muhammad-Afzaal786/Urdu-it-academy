@@ -7,7 +7,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/navigation";
-
+import { logoImg } from "./../public/logo.png";
 const navigation = [
   { name: "Home", href: "/", current: false },
   { name: "Courses", href: "/courses", current: false },
@@ -49,9 +49,8 @@ export default function Navbar() {
                 <div className="flex">
                   <div className="flex items-center">
                     <Link href="/">
-                      
                       <Image
-                        src="/Logo.png"
+                        src={"/Logo-2.png"}
                         alt="Urdu IT Academy"
                         width={144}
                         height={38}

@@ -1,16 +1,16 @@
-
-//  @type {import('next').NextConfig} 
+//  @type {import('next').NextConfig}
 const nextConfig = {
-  reactStrictMode : true,
+  reactStrictMode: true,
   distDir: "build",
   swcMinify: true,
-  experimental : {
-    appDir: true
+  experimental: {
+    appDir: true,
   },
   images: {
     domains: ["www.urduitacademy.com"],
     unoptimized: true,
   },
+
   output: "export",
 };
 

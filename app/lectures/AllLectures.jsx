@@ -57,8 +57,7 @@ const AllLectures = ({ searchParams }) => {
     fetchLectures();
   }, []);
   console.log(data, "all lec data");
-  const bgColor = data && data[0].videoId;
-  console.log(bgColor, "bg");
+ 
   useEffect(() => {
     if (data) {
       const selected = data.find(

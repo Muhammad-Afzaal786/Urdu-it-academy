@@ -96,12 +96,13 @@ const AllAvailableExams = ({ searchParams }) => {
               href={{
                 pathname: "/lectures",
                 query: {
+                  examId: c.examId,
+                  exam_Name: c.exam_Name,
                   vendorName: searchParams.get("vendorName"),
                   vendorId: searchParams.get("vendorId"),
                   certification_Name: searchParams.get("certification_Name"),
                   certificationId: searchParams.get("certificationId"),
-                  examId: c.examId,
-                  exam_Name: c.exam_Name,
+                 
                   video_name: c.video_Name,
                   status: searchParams.get("status"),
                   detail: searchParams.get("detail"),
