@@ -56,15 +56,13 @@ const AllLectures = ({ searchParams }) => {
 
     fetchLectures();
   }, []);
-  console.log(data, "all lec data");
- 
+
   useEffect(() => {
     if (data) {
       const selected = data.find(
         (lecture) => lecture.videoId === parseInt(searchParams.get("videoId"))
       );
       setSelectedLecture(selected);
-      console.log(selected, "selected");
     }
   }, [searchParams, data]);
 
@@ -72,7 +70,7 @@ const AllLectures = ({ searchParams }) => {
     setSelectedLecture(lecture);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  console.log(selectedLecture, "seee");
+
   if (isLoading) {
     return (
       <section className="lg:pt-20 pt-16">

@@ -24,7 +24,7 @@ const AllCourses = () => {
       }
     });
   };
-  console.log(data, "course Data");
+  
   if (isLoading) {
     return (
       <section className="lg:pt-20 pt-16">

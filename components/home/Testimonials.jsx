@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { apiBaseUrl } from "@/lib/constants";
+//import { apiBaseUrl } from "@/lib/constants";
 import Loader from "@/ui/Loader";
 import { Testimonial } from "@/app/Apicall/endPoints";
 import { SC } from "@/app/Apicall/ServerCall";
