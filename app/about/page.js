@@ -4,9 +4,9 @@ import DiscoverMore from "@/components/home/DiscoverMore";
 import Breadcrumb from "@/ui/Breadcrumb";
 import Team from "./Team";
 
-export const metadata = {
-  title: "About Us - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "About Us - Urdu It Academy",
+// };
 
 export default function About() {
   return (

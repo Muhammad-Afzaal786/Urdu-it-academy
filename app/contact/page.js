@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Breadcrumb from "@/ui/Breadcrumb";
 
-export const metadata = {
-  title: "Contact Us - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Contact Us - Urdu It Academy",
+// };
 
 export default function Contact() {
   return (

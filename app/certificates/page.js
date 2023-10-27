@@ -5,9 +5,9 @@ import Breadcrumb from "@/ui/Breadcrumb";
 import AllCertificates from "./AllCertificates";
 import { useSearchParams } from "next/navigation";
 
-export const metadata = {
-  title: "Certificates - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Certificates - Urdu It Academy",
+// };
 
 export default function Certificates() {
   const searchParams = useSearchParams();

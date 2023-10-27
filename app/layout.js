@@ -8,9 +8,9 @@ import AdSense from "@/components/Adsense";
 //import 'bootstrap/dist/js/bootstrap.js';
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Home - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Home - Urdu It Academy",
+// };
 
 export default function RootLayout({ children }) {
   return (

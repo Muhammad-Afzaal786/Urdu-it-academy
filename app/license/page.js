@@ -1,9 +1,9 @@
 import { Fragment } from "react";
 import Breadcrumb from "@/ui/Breadcrumb";
 
-export const metadata = {
-  title: "License Agreement - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "License Agreement - Urdu It Academy",
+// };
 
 export default function License() {
   return (

@@ -9,9 +9,9 @@ import Testimonials from "@/components/home/Testimonials";
 //import HelpPage from "./help/page";
 //import Blogs from "@/components/Blogs";
 
-export const metadata = {
-  title: "Home - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Home - Urdu It Academy",
+// };
 
 export default function Home() {
   return (

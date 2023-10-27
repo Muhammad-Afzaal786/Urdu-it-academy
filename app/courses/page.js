@@ -4,9 +4,9 @@ import DiscoverMore from "@/components/home/DiscoverMore";
 import Breadcrumb from "@/ui/Breadcrumb";
 import AllCourses from "./AllCourses";
 
-export const metadata = {
-  title: "All Courses - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "All Courses - Urdu It Academy",
+// };
 
 export default function Courses() {
   

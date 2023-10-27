@@ -5,9 +5,9 @@ import AllLectures from "./AllLectures";
 import Breadcrumb from "@/ui/Breadcrumb";
 import { useSearchParams } from "next/navigation";
 
-export const metadata = {
-  title: "Lectures - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Lectures - Urdu It Academy",
+// };
 
 export default function Lectures() {
   const searchParams = useSearchParams();
