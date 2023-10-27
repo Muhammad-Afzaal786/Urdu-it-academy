@@ -2,50 +2,43 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Loader from "@/ui/Loader";
-import { baseBathApi } from "../Apicall/basePathApi";
-import { availableExam } from "../Apicall/endPoints";
-import { SC } from "../Apicall/ServerCall";
+import { basePathApi } from "../Apicall/basePathApi";
+
 const AllAvailableExams = ({ searchParams }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const payload = {
-      certificationId: searchParams.get("certificationId"),
-    };
-    SC.postCall(availableExam, payload).then((res) => {
-      setData(res.data.data);
-      setIsLoading(false);
-    });
-    //fetchAvailbleExams();
+    fetchAvailbleExams();
   }, []);
-  // const fetchAvailbleExams = async () => {
-  //   try {
-  //     const payload = {
-  //       certificationId: searchParams.get("certificationId"),
-  //     };
+  const fetchAvailbleExams = async () => {
+    try {
+      const payload = {
+        certificationId: searchParams?.get("certificationId"),
+      };
 
-  //     const response = await fetch(`${baseBathApi}available_exam`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(payload),
-  //     });
+      const response = await fetch(`${basePathApi}available_exam`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      const jsonData = await response.json();
+      setData(jsonData.data);
+      setSelectedLecture(jsonData.data);
+      setIsLoading(false);
 
-  //     if (!response.ok) {
-  //       throw new Error("Request failed");
-  //     }
-  //     const jsonData = await response.json();
-
-  //     setData(jsonData.data);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     setError(error.message);
-  //   }
-  // };
+      console.log(videoFirstUrl, "First url");
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -67,7 +60,6 @@ const AllAvailableExams = ({ searchParams }) => {
     );
   }
 
-  console.log(data, "videoooooooooo");
   return (
     <section className="lg:pt-[50px] pt-6 pb-4 md:pb-11">
       {/* section header */}
@@ -102,7 +94,6 @@ const AllAvailableExams = ({ searchParams }) => {
                   vendorId: searchParams.get("vendorId"),
                   certification_Name: searchParams.get("certification_Name"),
                   certificationId: searchParams.get("certificationId"),
-                 
                   video_name: c.video_Name,
                   status: searchParams.get("status"),
                   detail: searchParams.get("detail"),

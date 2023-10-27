@@ -5,9 +5,9 @@ import Breadcrumb from "@/ui/Breadcrumb";
 import AllAvailableExams from "./AllAvailableExams";
 import { useSearchParams } from "next/navigation";
 
-export const metadata = {
-  title: "Available Exams - Urdu It Academy",
-};
+// export const metadata = {
+//   title: "Available Exams - Urdu It Academy",
+// };
 
 export default function AvailbleExams() {
   const searchParams = useSearchParams();
