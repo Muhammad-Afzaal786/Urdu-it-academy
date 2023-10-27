@@ -1,5 +1,5 @@
 //  @type {import('next').NextConfig}
-const nextConfig = {
+
   // reactStrictMode: true,
   // distDir: "build",
   // swcMinify: true,
@@ -11,9 +11,10 @@ const nextConfig = {
   //   unoptimized: true,
   // },
 
-  // output: "export",
+// output: "export",
+const nextConfig = {
   reactStrictMode: true,
-  distDir: "out", // Or use the default "out" if it matches your project's configuration.
+  //distDir: "out", 
   swcMinify: true,
   experimental: {
     appDir: true,
@@ -22,7 +23,7 @@ const nextConfig = {
     domains: ["www.urduitacademy.com"],
     unoptimized: true,
   },
-  target: "experimental-serverless-trace",
+  //target: "experimental-serverless-trace",
 };
 
 module.exports = nextConfig;
