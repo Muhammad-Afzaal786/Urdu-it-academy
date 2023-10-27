@@ -23,6 +23,6 @@ const nextConfig = {
     unoptimized: true,
   },
   target: "experimental-serverless-trace",
-verce};
+};
 
 module.exports = nextConfig;
