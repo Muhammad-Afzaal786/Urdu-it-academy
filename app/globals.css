@@ -89,10 +89,11 @@
   text-align: center;
 }
 
-iframe,
+.newUploadVid iframe,
 embed,
 object {
   width: 100% !important;
+  height: 210px;
 }
 
 .light_btn {

@@ -64,6 +64,7 @@ const NewUploads = () => {
             <div className="flex flex-col sm:w-full lg:w-1/4 my-2" key={idx}>
               <div className="mb-3">
                 <div
+                  className="newUploadVid"
                   dangerouslySetInnerHTML={{
                     __html: val && val.video_Url,
                   }}
