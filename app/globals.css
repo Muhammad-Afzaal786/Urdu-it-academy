@@ -85,16 +85,22 @@
   margin-top: 3rem;
 }
 
-.heading_help{
-  text-align: center
+.heading_help {
+  text-align: center;
 }
 
-.light_btn{
-  color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+iframe,
+embed,
+object {
+  width: 100% !important;
+  height: 210px !important;
 }
+
+.light_btn {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
 @tailwind components;
 @tailwind utilities;
-
-
