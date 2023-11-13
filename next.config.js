@@ -14,7 +14,7 @@
 // output: "export",
 const nextConfig = {
   reactStrictMode: true,
-  distDir: "out", 
+  //distDir: "out", 
   swcMinify: true,
   experimental: {
     appDir: true,
