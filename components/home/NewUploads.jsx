@@ -57,7 +57,7 @@ const NewUploads = () => {
         New Uploads
       </h2>
 
-      <div className="flex  gap-3 mt-10">
+      <div className="flex md:flex-nowrap flex-wrap gap-3 mt-10">
         {data.map((val, idx) => {
           console.log(val, "Data");
           return (
