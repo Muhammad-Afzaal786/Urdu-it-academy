@@ -1,9 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { apiBaseUrl } from "@/lib/constants";
+import { basePathApi } from "../Apicall/basePathApi";
+
 import Loader from "@/ui/Loader";
 import { SessionModal } from "./SessionModal";
+import { SC } from "../Apicall/ServerCall";
+import { OurTeam } from "../Apicall/endPoints";
 
 const Team = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,31 +16,32 @@ const Team = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/team`, {
-          headers: {
-            "Content-Type": "application/json",
-            // Include any other headers you need
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        const jsonData = await response.json();
-        console.log("json");
-
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
-
     fetchTeams();
   }, []);
+
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch(`${basePathApi}team`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          // Include any other headers you need
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      const jsonData = await response.json();
+
+      setData(jsonData);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
 
   return (
     <>
@@ -82,8 +86,7 @@ const Team = () => {
               <div
                 className="flex flex-col mb-5 lg:mb-[50px] group"
                 key={t.id}
-                onClick={() => setSelectedUser(t)}
-              >
+                onClick={() => setSelectedUser(t)}>
                 <div className="flex items-center overflow-hidden justify-center h-[140px] sm:h-[170px] lg:h-[223px] border border-[#E8E8E8] bg-[#FDFDFD] rounded p-2">
                   <Image
                     src={`https://www.urduitacademy.com/team/${t.pic}`}
@@ -101,8 +104,7 @@ const Team = () => {
                   {/* 1:1 */}
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="bg-[#0063F6] px-4 hover:cursor-pointer rounded text-white self-start mt-4 hidden group-hover:block"
-                  >
+                    className="bg-[#0063F6] px-4 hover:cursor-pointer rounded text-white self-start mt-4 hidden group-hover:block">
                     1:1
                   </button>
                 </div>

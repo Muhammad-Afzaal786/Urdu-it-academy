@@ -13,12 +13,4 @@ export const SearchData = "search";
 export const data_certificate = "certificates";
 export const relatedLectures = "related_lectures";
 export const availableExam = "available_exam";
-
-
-
-
-
-
-
-
-
+export const OurTeam = "team";
